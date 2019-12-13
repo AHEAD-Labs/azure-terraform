@@ -9,7 +9,7 @@ provider "azurerm" {
 
 
 module "rg" {
-  #source = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/resource-group?ref=feature/resource-group"
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/resource-group?ref=feature/resource-group"
   source           = "../../../../nic-terraform-modules/modules/azure/resource-group"
   business_unit    = var.business_unit
   project_name     = var.project_name

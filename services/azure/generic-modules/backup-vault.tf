@@ -1,5 +1,5 @@
 module "vault" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/backup-vault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/backup-vault"
   source              = "../../../modules/azure/backup-vault"
   business_unit       = var.business_unit
   project_name        = var.project_name
@@ -14,7 +14,7 @@ module "vault" {
 }
 
 module "backup-policy" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/backup-policy-vm"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/backup-policy-vm"
   source              = "../../../modules/azure/backup-policy-vm"
   recovery_vault_name = module.vault.name
   resource_group_name = module.rg.resource_group_name

@@ -1,5 +1,5 @@
 module "app" {
-  source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/app-service"
+  source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/app-service"
   application_name = var.application_name
   name             = var.name
   rg_name          = module.rg.rg_name

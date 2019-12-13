@@ -1,5 +1,5 @@
 module "appgw" {
-  source      = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/application-gateway"
+  source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/application-gateway"
   app_name    = "app45"
   domain      = var.domain
   cert_pw     = "test"

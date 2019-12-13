@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 module "rg" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/resource-group"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/resource-group"
   source           = "../../../modules/azure/resource-group"
   business_unit    = var.business_unit
   project_name     = var.project_name
@@ -18,7 +18,7 @@ module "rg" {
 }
 
 module "rg2" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/resource-group"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/resource-group"
   source           = "../../../modules/azure/resource-group"
   business_unit    = var.business_unit
   project_name     = var.project_name
@@ -32,7 +32,7 @@ module "rg2" {
 }
 
 module "rg3" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/resource-group"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/resource-group"
   source           = "../../../modules/azure/resource-group"
   business_unit    = var.business_unit
   project_name     = var.project_name
@@ -47,7 +47,7 @@ module "rg3" {
 
 
 module "app-insights" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/app-insights"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/app-insights"
   source              = "../../../modules/azure/app-insights"
   resource_group_name                   = module.rg2.resource_group_name
   application_type    = var.application_type
@@ -65,7 +65,7 @@ module "app-insights" {
 
 
 module "app" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/app-service"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/app-service"
   source                                = "../../../modules/azure/app-service"
   name                                  = var.name
   resource_group_name                   = module.rg.resource_group_name
@@ -94,7 +94,7 @@ module "app" {
 
 
 module "app2" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/app-service"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/app-service"
   source                                = "../../../modules/azure/app-service"
   name                                  = var.name
   resource_group_name                   = module.rg.resource_group_name
@@ -122,7 +122,7 @@ module "app2" {
 }
 
 module "kv" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/keyvault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
   source              = "../../../modules/azure/keyvault"
   resource_group_name = module.rg.resource_group_name
   tenant              = var.tenant
@@ -155,7 +155,7 @@ module "dbpw" {
 
 
 module "kv-secret-dbpw" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/keyvault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
   source           = "../../../modules/azure/keyvault-secret"
   name             = "db-password"
   value            = module.dbpw.result
@@ -172,7 +172,7 @@ module "kv-secret-dbpw" {
 
 
 module "kv-secret-dbusername" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/keyvault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
   source           = "../../../modules/azure/keyvault-secret"
   name             = "db-username"
   value            = var.administrator_login
@@ -190,7 +190,7 @@ module "kv-secret-dbusername" {
 
 
 module "kv-policy" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/keyvault-access-policy"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault-access-policy"
   source = "../../../modules/azure/keyvault-access-policy"
   tenant = var.tenant
   # The object_id that needs access to the keyvault
@@ -200,7 +200,7 @@ module "kv-policy" {
 }
 
 module "sa" {
-  #source      = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/storage-accounts"
+  #source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/storage-accounts"
   source                    = "../../../modules/azure/storage-account"
   resource_group_name       = module.rg.resource_group_name
   location                  = var.primary_location
@@ -220,7 +220,7 @@ module "sa" {
 
 
 module "sa-db-primary" {
-  #source      = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/storage-accounts"
+  #source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/storage-accounts"
   source                    = "../../../modules/azure/storage-account"
   resource_group_name       = module.rg.resource_group_name
   location                  = var.primary_location
@@ -242,7 +242,7 @@ module "sa-db-primary" {
 
 
 module "sa-key" {
-  #source      = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/storage-accounts"
+  #source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/storage-accounts"
   source            = "../../../modules/azure/storage-account-key"
   start             = var.start
   stop              = var.stop
@@ -267,7 +267,7 @@ module "sa-key" {
 
 
 module "app-container" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/container"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/container"
   source               = "../../../modules/azure/container"
   storage_account_name = module.sa.storage_account_name
   name                 = "appbackups"
@@ -283,7 +283,7 @@ module "app-container" {
 }
 
 module "la" {
-  #source      = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/log-analytics"
+  #source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/log-analytics"
   source              = "../../../modules/azure/log-analytics"
   resource_group_name = module.rg2.resource_group_name
   location            = module.rg2.rg_location
@@ -301,7 +301,7 @@ module "la" {
 }
 
 module "primary" {
-  #source  = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/azure-sql"
+  #source  = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/azure-sql"
   source                       = "../../../modules/azure/azure-sql"
   resource_group_name          = module.rg.resource_group_name
   name                         = var.name
@@ -325,7 +325,7 @@ module "primary" {
 }
 
 module "secondary" {
-  #source  = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/azure-sql"
+  #source  = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/azure-sql"
   source                       = "../../../modules/azure/azure-sql"
   resource_group_name          = module.rg.resource_group_name
   name                         = "${var.name}-2"
@@ -351,7 +351,7 @@ module "secondary" {
 }
 
 module "sql-db" {
-  #source  = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/azure-sql"
+  #source  = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/azure-sql"
   source                     = "../../../modules/azure/azure-sql-db"
   resource_group_name        = module.rg.resource_group_name
   business_unit              = var.business_unit
@@ -376,7 +376,7 @@ module "sql-db" {
 }
 
 module "sql-failover-group" {
-  #source  = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/sql-failover-group"
+  #source  = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/sql-failover-group"
   source              = "../../../modules/azure/sql-failover-group"
   resource_group_name = module.rg.resource_group_name
   name                = var.name
@@ -389,7 +389,7 @@ module "sql-failover-group" {
 
 
 module "front-door" {
-  #source                                       = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/front-door?ref=v0.1.6"
+  #source                                       = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/front-door?ref=v0.1.6"
   source                                       = "../../../modules/azure/front-door"
   business_unit                                = var.business_unit
   project_name                                 = var.project_name
