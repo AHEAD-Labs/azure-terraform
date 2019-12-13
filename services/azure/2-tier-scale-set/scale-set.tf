@@ -1,6 +1,6 @@
 
 module "scale-set" {
-  #source = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/scale-set?ref=feature/scale-set"
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
   source                                  = "../../../../nic-terraform-modules/modules/azure/scale-set-windows"
   name                                    = var.name
   resource_group_name                     = module.rg.resource_group_name
@@ -37,7 +37,7 @@ module "scale-set" {
 }
 
 module "network" {
-  #source = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/vnet-with-subnet?ref=feature/vnet-with-subnet"
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/vnet-with-subnet?ref=feature/vnet-with-subnet"
   source              = "../../../../nic-terraform-modules/modules/azure/vnet-with-subnet"
   resource_group_name = module.rg.resource_group_name
   location            = var.location
@@ -76,7 +76,7 @@ module "pw-gen" {
 
 
 module "server-pw" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/keyvault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
   source           = "../../../modules/azure/keyvault-secret"
   name             = "serverpassword"
   value            = module.pw-gen.result
@@ -93,7 +93,7 @@ module "server-pw" {
 
 
 module "username" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/keyvault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
   source           = "../../../modules/azure/keyvault-secret"
   name             = "serverusername"
   value            = var.admin_username
