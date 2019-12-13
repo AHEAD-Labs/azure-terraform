@@ -1,0 +1,10 @@
+#!/bin/bash
+git pull origin master
+git add *
+git commit -m "$1"
+TAG1=$(git tag --sort=v:refname | tail -1 | cut -d . -f 1-2)
+TAG2=$(git tag --sort=v:refname | tail -1 | cut -d . -f 3)
+NEW_TAG=$((TAG2+1))
+TAGS="$TAG1.$NEW_TAG"
+git tag $TAGS $(git rev-parse HEAD)
+git push origin master --tags
