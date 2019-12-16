@@ -30,15 +30,6 @@ variable "forwarding_protocol" {
 
 variable "backends" {
   type = any
-  // https://github.com/hashicorp/terraform/issues/19898
-  //  type = list(object({
-  //    address     = string
-  //    host_header = string
-  //    http_port   = number
-  //    https_port  = number
-  //    priority    = number
-  //    weight      = number
-  //  }))
   description = "A list of backend blocks to add to the frontdoor"
 }
 
