@@ -400,7 +400,7 @@ module "front-door" {
   application_name                             = var.application_name
   name                                         = var.name
   resource_group_name                          = module.rg3.resource_group_name
-  location                                     = var.location
+  location                                     = var.primary_location
   enforce_backend_pools_certificate_name_check = var.enforce_backend_pools_certificate_name_check
   custom_https_provisioning_enabled            = var.custom_https_provisioning_enabled
   backends = [{
