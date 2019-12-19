@@ -1,3 +1,5 @@
+
+# Network Security Group
 variable "resource_group_name" {
   type = string
 }
@@ -5,50 +7,39 @@ variable "resource_group_name" {
 variable "location" {
   type = string
 }
-
-variable "allocation_method" {
+variable "prefix" {
   type = string
 }
 
-variable "sku" {
-  type = string
-}
+# Tags
 
-variable "address_space" {
-  type = string
-}
 
-variable "address_prefix" {
-  type = string
-}
 
 variable "business_unit" {
-  type        = string
   description = "Business unit for the project - Portal name or business unit name"
+  type        = string
 }
 
 variable "project_name" {
-  type        = string
   description = "Project name. e.g. 'Gov2Go'"
+  type        = string
 }
 
 variable "application_name" {
+  description = "Application name, e.g. 'app' or 'jenkins"
   type        = string
-  description = "Application name, e.g. 'app' or 'jenkins'"
 }
 
 variable "managed_by" {
-  type        = string
   description = "Organization team name or group. e.g. 'ETS-SRE'"
+  type        = string
 }
 
 variable "environment" {
-  type    = string
-  default = "default"
+  type = string
 }
 
 variable "delimiter" {
-  type    = string
   default = "-"
 }
 
