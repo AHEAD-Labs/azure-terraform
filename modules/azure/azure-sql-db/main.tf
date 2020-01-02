@@ -27,8 +27,8 @@ resource "azurerm_sql_database" "main" {
     email_addresses            = var.email_addresses
     storage_endpoint           = var.storage_endpoint
     storage_account_access_key = var.storage_account_access_key
-    email_account_admins       = "Enabled"
-    use_server_default         = "Enabled"
+    email_account_admins       = var.email_account_admins
+    use_server_default         = var.use_server_default
 
   }
 

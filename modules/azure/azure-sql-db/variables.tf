@@ -12,7 +12,7 @@ variable "business_unit" {
 
 variable "project_name" {
   type        = string
-  description = "Project name. e.g. 'Gov2Go'"
+  description = "Project name."
 }
 
 variable "application_name" {
@@ -101,6 +101,17 @@ variable "email_addresses" {
   default = []
 
 }
+
+variable "email_account_admins" {
+  type = string
+  default = "Enabled"
+}
+
+variable "use_server_default" {
+  type = string
+  default = "Enabled"
+}
+
 
 variable "retention_days" {
   description = "(Optional) Specifies the number of days to keep in the Threat Detection audit logs."

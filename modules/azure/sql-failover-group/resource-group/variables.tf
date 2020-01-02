@@ -1,11 +1,11 @@
 variable "business_unit" {
   type        = string
-  description = "Business unit for the project"
+  description = "Business unit for the project - Portal name or business unit name"
 }
 
 variable "project_name" {
   type        = string
-  description = "Project name."
+  description = "Project name. e.g. 'Gov2Go'"
 }
 
 variable "application_name" {
@@ -15,7 +15,7 @@ variable "application_name" {
 
 variable "managed_by" {
   type        = string
-  description = "Organization team name or group. e.g. "
+  description = "Organization team name or group. e.g. 'ETS-SRE'"
 }
 
 variable "environment" {
@@ -50,5 +50,5 @@ variable "name" {
 
 variable "location" {
   type    = string
-  
+  default = "Central US"
 }

@@ -1,3 +1,22 @@
+
+variable "name" {
+  type        = string
+  description = "name of the workspace"
+}
+
+variable "location" {
+  type        = string
+  description = "location of the workspace"
+}
+
+variable "resource_group_name" {
+  type        = string
+  description = "name of the resource group"
+}
+
+
+
+# label variables
 variable "business_unit" {
   type        = string
   description = "Business unit for the project"
@@ -15,7 +34,7 @@ variable "application_name" {
 
 variable "managed_by" {
   type        = string
-  description = "Organization team name or group. e.g. "
+  description = "Organization team name or group. e.g."
 }
 
 variable "environment" {
@@ -42,13 +61,4 @@ variable "enabled" {
   type        = bool
   description = "Whether to create this resource or not?"
   default     = true
-}
-
-variable "name" {
-  type = string
-}
-
-variable "location" {
-  type    = string
-  
 }
