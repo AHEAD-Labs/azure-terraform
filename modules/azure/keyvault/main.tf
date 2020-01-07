@@ -15,7 +15,7 @@ module "label" {
 
 
 resource "azurerm_key_vault" "main" {
-  name                            = "${var.application_name}-keyvault"
+  name                            = "${var.name}-keyvault"
   location                        = var.location
   resource_group_name             = var.resource_group_name
   enabled_for_disk_encryption     = true
@@ -30,6 +30,7 @@ resource "azurerm_key_vault_access_policy" "access" {
   key_vault_id = azurerm_key_vault.main.id
   tenant_id    = var.tenant
   object_id    = var.object_id
+
 
   secret_permissions = [
     "get",

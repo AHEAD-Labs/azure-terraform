@@ -142,7 +142,7 @@ module "kv" {
 }
 
 module "dbpw" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/generic/random-string"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/generic/random-string"
   source  = "../../../modules/generic/random-string"
   length  = 32
   special = true

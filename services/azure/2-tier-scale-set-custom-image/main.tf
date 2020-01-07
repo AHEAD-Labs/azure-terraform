@@ -10,7 +10,7 @@ provider "azurerm" {
 
 module "rg" {
   #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/resource-group?ref=feature/resource-group"
-  source           = "../../../../nic-terraform-modules/modules/azure/resource-group"
+  source           = "../../../../modules/azure/resource-group"
   business_unit    = var.business_unit
   project_name     = var.project_name
   application_name = var.application_name

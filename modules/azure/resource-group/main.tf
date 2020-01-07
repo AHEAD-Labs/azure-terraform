@@ -14,7 +14,7 @@ module "label" {
 
 resource "azurerm_resource_group" "rg" {
   count    = var.enabled ? 1 : 0
-  name     = "${var.environment}-${var.application_name}${var.name}"
+  name     = var.name
   location = var.location
   tags     = module.label.tags
 }

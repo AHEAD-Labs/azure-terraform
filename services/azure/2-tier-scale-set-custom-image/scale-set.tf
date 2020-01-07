@@ -1,7 +1,7 @@
 
 module "scale-set" {
   #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set-custom-image"
-  source                                  = "../../../../nic-terraform-modules/modules/azure/scale-set-custom-image"
+  source                                  = "../../../../modules/azure/scale-set-custom-image"
   name                                    = var.name
   resource_group_name                     = module.rg.resource_group_name
   location                                = var.location
@@ -42,7 +42,7 @@ module "scale-set" {
 
 module "network" {
   #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/vnet-with-subnet?ref=feature/vnet-with-subnet"
-  source              = "../../../../nic-terraform-modules/modules/azure/vnet-with-subnet"
+  source              = "../../../../modules/azure/vnet-with-subnet"
   resource_group_name = module.rg.resource_group_name
   location            = var.location
   business_unit       = var.business_unit
@@ -67,7 +67,7 @@ module "network" {
 # Passwords and secrets
 
 module "pw-gen" {
-  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/generic/random-string"
+  #source           = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team//modules/generic/random-string"
   source  = "../../../modules/generic/random-string"
   length  = 16
   special = true
@@ -114,8 +114,8 @@ module "username" {
 
 
 module "lb" {
-  #source = "git@ssh.dev.azure.com:v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/load-balancer?ref=feature/loadbalancer"
-  source              = "../../../../nic-terraform-modules/modules/azure/load-balancer"
+  #source = "git@ssh.dev.azure.com:v3/NIC-Cloud-Team//modules/azure/load-balancer?ref=feature/loadbalancer"
+  source              = "../../../../modules/azure/load-balancer"
   resource_group_name = module.rg.resource_group_name
   location            = var.location
   business_unit       = var.business_unit

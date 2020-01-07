@@ -1,11 +1,20 @@
+
+
+# Main
 variable "business_unit" {
   type        = string
-  description = "Business unit for the project - Portal name or business unit name"
+  description = "Business unit for the project"
 }
+
+variable "subscription_id" {
+  type = string
+}
+
+
 
 variable "project_name" {
   type        = string
-  description = "Project name. e.g. 'Gov2Go'"
+  description = "Project name. e.g."
 }
 
 variable "application_name" {
@@ -15,12 +24,11 @@ variable "application_name" {
 
 variable "managed_by" {
   type        = string
-  description = "Organization team name or group. e.g. 'ETS-SRE'"
+  description = "Organization team name or group. e.g."
 }
 
 variable "environment" {
-  type    = string
-  default = "default"
+  type = string
 }
 
 variable "delimiter" {
@@ -40,7 +48,7 @@ variable "tags" {
 
 variable "enabled" {
   type        = bool
-  description = "Whether to create this resource or not?"
+  description = "Whether to create this resource or not"
   default     = true
 }
 
@@ -52,3 +60,7 @@ variable "location" {
   type    = string
   default = "Central US"
 }
+
+
+
+

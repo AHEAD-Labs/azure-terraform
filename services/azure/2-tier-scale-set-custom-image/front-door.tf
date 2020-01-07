@@ -1,6 +1,6 @@
 
 module "front-door" {
-  #source                                       = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team/nic-terraform-modules/nic-terraform-modules//modules/azure/front-door?ref=v0.1.6"
+  #source                                       = "git::ssh://git@ssh.dev.azure.com/v3/NIC-Cloud-Team//modules/azure/front-door?ref=v0.1.6"
   source                                       = "../../../modules/azure/front-door"
   business_unit                                = var.business_unit
   project_name                                 = var.project_name
