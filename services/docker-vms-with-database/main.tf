@@ -18,7 +18,7 @@ module "rg" {
   environment      = var.environment
   attributes       = var.attributes
   tags             = var.tags
-  name             = var.name
+  name             = "test-ta20202-rg"
   location         = var.location
 }
 
