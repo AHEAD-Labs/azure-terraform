@@ -49,7 +49,6 @@ provisioner_object_id = "fa2b1bf1-2eb7-42af-b924-e5f43834dcd7"
 # VM
 admin_username       = "2020admin"
 computer_name        = "testaheadserver2020"
-computer_name_prefix = "windows"
 os                   = "2019-Datacenter"
 os_offer             = "WindowsServer"
 os_publisher         = "MicrosoftWindowsServer"

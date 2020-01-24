@@ -16,7 +16,7 @@ module "label" {
 }
 
 resource "azurerm_virtual_machine" "windows-vm" {
-  name                = "${module.label.name}-${var.name}-vm"
+  name                = "${var.name}-vm"
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = module.label.tags
@@ -38,14 +38,14 @@ resource "azurerm_virtual_machine" "windows-vm" {
   }
 
   storage_os_disk {
-    name              = ""
+    name              = "storagedisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name = var.computer_name
+    computer_name = "${var.name}-disk"
     admin_username       = var.admin_username
     admin_password       = var.admin_password
     custom_data          = var.custom_data

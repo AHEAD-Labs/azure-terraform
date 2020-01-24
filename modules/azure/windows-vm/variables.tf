@@ -39,7 +39,7 @@ variable "business_unit" {
 }
 
 variable "project_name" {
-  description = "Project name. e.g. 'Gov2Go'"
+  description = "Project name. e.g."
   type        = string
 }
 
@@ -49,7 +49,7 @@ variable "application_name" {
 }
 
 variable "managed_by" {
-  description = "Organization team name or group. e.g. 'ETS-SRE'"
+  description = "Organization team name or group. e.g."
   type        = string
 }
 
