@@ -44,3 +44,19 @@ sku_name = "standard"
 kv_object_id = "fa2b1bf1-2eb7-42af-b924-e5f43834dcd7"
 # the object id of the the user or service principal running terraform
 provisioner_object_id = "fa2b1bf1-2eb7-42af-b924-e5f43834dcd7"
+
+
+# VM
+admin_username       = "2020admin"
+computer_name        = "testaheadserver2020"
+computer_name_prefix = "windows"
+os                   = "2019-Datacenter"
+os_offer             = "WindowsServer"
+os_publisher         = "MicrosoftWindowsServer"
+vm_size              = "Standard_DS1_v2"
+vm_sku_tier          = "standard"
+address_space    = "10.0.0.0/8"
+address_prefix   = "10.0.2.0/24"
+
+
+

@@ -6,23 +6,22 @@ variable "admin_password" {
   type = string
 }
 
-
-variable "max_batch_instance_percent" {
-  type = string
-}
-variable "max_unhealthy_instance_percent" {
-  type = string
-}
-variable "max_unhealthy_upgraded_instance_percent" {
-  type = string
-}
-variable "pause_time_between_batches" {
+variable "network_interface_ids" {
   type = string
 }
 
-variable "lb_pool_ids" {
-  type = list(string)
+variable "vm_size" {
+  type = string
 }
+
+variable "delete_os_disk_on_termination" {
+  type = string
+}
+
+variable "delete_data_disks_on_termination" {
+  type = string
+}
+
 variable "resource_group_name" {
   type = string
 }
@@ -32,9 +31,6 @@ variable "location" {
 }
 
 
-variable "health_probe_id" {
-  type = string
-}
 
 # main
 variable "business_unit" {
@@ -106,18 +102,7 @@ variable "name" {
   type = string
 }
 
-variable "address_space" {
-  type = string
-}
 
-variable "address_prefix" {
-  type = string
-}
-
-variable "upgrade_policy_mode" {
-  description = "(Required) Specifies the mode of an upgrade to virtual machines in the scale set. Possible values, Rolling, Manual, or Automatic. When choosing Rolling, you will need to set a health probe."
-  type        = string
-}
 
 variable "sku_name" {
   default     = "Standard_F2"
@@ -131,13 +116,8 @@ variable "sku_tier" {
   description = "(Optional) Specifies the tier of virtual machines in a scale set. Possible values, standard or basic."
 }
 
-variable "capacity" {
-  type        = number
-  description = "(Required) Specifies the number of virtual machines in the scale set."
-  default     = 2
-}
 
-variable "computer_name_prefix" {
+variable "computer_name" {
   type        = string
   description = "(Required) Specifies the computer name prefix for all of the virtual machines in the scale set. Computer name prefixes must be 1 to 9 characters long for windows images and 1 - 58 for linux. Changing this forces a new resource to be created."
 }
@@ -153,9 +133,6 @@ variable "admin_username" {
   description = "Admin username"
 }
 
-variable "automatic_os_upgrade" {
-  type = string
-}
 
 
 

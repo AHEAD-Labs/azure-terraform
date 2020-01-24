@@ -1,9 +1,9 @@
 
 
-output "scale_set_id" {
-  value = azurerm_virtual_machine_scale_set.scale-set.id
+output "id" {
+  value = azurerm_virtual_machine.main.id
 }
 
 output "name" {
-  value = azurerm_virtual_machine_scale_set.scale-set.name
+  value = azurerm_virtual_machine.main.name
 }

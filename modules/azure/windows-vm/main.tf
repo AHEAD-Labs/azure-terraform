@@ -15,57 +15,37 @@ module "label" {
   enabled          = var.enabled
 }
 
-resource "azurerm_virtual_machine_scale_set" "scale-set" {
-  name                = "${module.label.name}-${var.name}-scale-set"
+resource "azurerm_virtual_machine" "windows-vm" {
+  name                = "${module.label.name}-${var.name}-vm"
   location            = var.location
   resource_group_name = var.resource_group_name
   tags                = module.label.tags
+  network_interface_ids = [var.network_interface_ids]
+  vm_size               = var.vm_size
 
 
+  delete_os_disk_on_termination = var.delete_os_disk_on_termination
+  delete_data_disks_on_termination = var.delete_data_disks_on_termination
 
-  # automatic rolling upgrade
-  automatic_os_upgrade = var.automatic_os_upgrade
-  upgrade_policy_mode  = var.upgrade_policy_mode
 
-  rolling_upgrade_policy {
-    max_batch_instance_percent              = var.max_batch_instance_percent
-    max_unhealthy_instance_percent          = var.max_unhealthy_instance_percent
-    max_unhealthy_upgraded_instance_percent = var.max_unhealthy_instance_percent
-    pause_time_between_batches              = var.pause_time_between_batches
-  }
+  
 
-  # required when using rolling upgrade policy
-  health_probe_id = var.health_probe_id
-
-  sku {
-    name     = var.sku_name
-    tier     = var.sku_tier
-    capacity = var.capacity
-  }
-
-  storage_profile_image_reference {
+  storage_image_reference {
     publisher = var.os_publisher
     offer     = var.os_offer
     sku       = var.os
     version   = var.os_version
   }
 
-  storage_profile_os_disk {
+  storage_os_disk {
     name              = ""
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
-  storage_profile_data_disk {
-    lun           = 0
-    caching       = "ReadWrite"
-    create_option = "Empty"
-    disk_size_gb  = 10
-  }
-
   os_profile {
-    computer_name_prefix = var.computer_name_prefix
+    computer_name = var.computer_name
     admin_username       = var.admin_username
     admin_password       = var.admin_password
     custom_data          = var.custom_data
@@ -73,23 +53,9 @@ resource "azurerm_virtual_machine_scale_set" "scale-set" {
 
   os_profile_windows_config {
 
-    provision_vm_agent        = null
-    enable_automatic_upgrades = null
+    provision_vm_agent        = true
+    enable_automatic_upgrades = true
   }
-
-
-  network_profile {
-    name    = "networkprofile"
-    primary = true
-
-    ip_configuration {
-      name                                   = "IPConfiguration"
-      primary                                = true
-      subnet_id                              = var.subnet_id
-      load_balancer_backend_address_pool_ids = var.lb_pool_ids
-    }
-  }
-
 
 }
 

@@ -35,10 +35,10 @@ resource "azurerm_virtual_machine" "main" {
     publisher = var.publisher
     offer     = var.offer
     sku       = var.sku
-    version   = var.version
+    version   = var.storage_image_reference_version
   }
   storage_os_disk {
-    name              = var.name
+    name              = var.storage_os_disk_name
     caching           = var.caching
     create_option     = var.create_option
     managed_disk_type = var.managed_disk_type
