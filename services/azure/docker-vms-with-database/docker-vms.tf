@@ -1,7 +1,6 @@
 module "vm" {
   #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
   source                           = "../../../modules/azure/windows-vm"
-  name                             = var.name
   resource_group_name              = module.rg.resource_group_name
   location                         = var.location
   business_unit                    = var.business_unit
@@ -16,15 +15,73 @@ module "vm" {
   os_publisher                     = var.os_publisher
   os_version                       = var.os_version
   sku_tier                         = var.vm_sku_tier
-  computer_name                    = var.computer_name
   admin_username                   = var.admin_username
   admin_password                   = module.pw-gen.result
   custom_data                      = null
   vm_size                          = var.vm_size
-  delete_data_disks_on_termination = false
-  delete_os_disk_on_termination    = false
-  subnet_id                        =  module.network.subnet_id
-  network_interface_ids            = module.network.vnet_id
+  delete_data_disks_on_termination = var.delete_data_disks_on_termination
+  delete_os_disk_on_termination    = var.delete_os_disk_on_termination
+  network_interface_ids            = module.nic.id
+}
+
+
+module "vm2" {
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
+  source                           = "../../../modules/azure/linux-vm"
+  resource_group_name              = module.rg.resource_group_name
+  location                         = var.location
+  business_unit                    = var.business_unit
+  project_name                     = var.project_name
+  application_name                 = var.application_name
+  managed_by                       = var.managed_by
+  environment                      = var.environment
+  attributes                       = var.attributes
+  tags                             = var.tags
+  admin_username                   = var.admin_username
+  admin_password                   = module.pw-gen.result
+  vm_size                          = var.vm_size
+  delete_data_disks_on_termination = var.delete_data_disks_on_termination
+  delete_os_disk_on_termination    = var.delete_os_disk_on_termination
+  network_interface_ids            = module.nic2.id
+  publisher                        = var.publisher
+  offer                            = var.offer
+  sku                              = var.sku
+  caching                          = var.caching
+  create_option                    = var.create_option
+  managed_disk_type                = var.managed_disk_type
+  disable_password_authentication  = var.disable_password_authentication
+  storage_image_reference_version  = var.storage_image_reference_version
+
+}
+
+
+module "vm3" {
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
+  source                           = "../../../modules/azure/linux-vm"
+  resource_group_name              = module.rg.resource_group_name
+  location                         = var.location
+  business_unit                    = var.business_unit
+  project_name                     = var.project_name
+  application_name                 = var.application_name
+  managed_by                       = var.managed_by
+  environment                      = var.environment
+  attributes                       = var.attributes
+  tags                             = var.tags
+  admin_username                   = var.admin_username
+  admin_password                   = module.pw-gen.result
+  vm_size                          = var.vm_size
+  delete_data_disks_on_termination = var.delete_data_disks_on_termination
+  delete_os_disk_on_termination    = var.delete_os_disk_on_termination
+  network_interface_ids            = module.nic2.id
+  publisher                        = var.publisher
+  offer                            = var.offer
+  sku                              = var.sku
+  caching                          = var.caching
+  create_option                    = var.create_option
+  managed_disk_type                = var.managed_disk_type
+  disable_password_authentication  = var.disable_password_authentication
+  storage_image_reference_version  = var.storage_image_reference_version
+
 }
 
 module "pw-gen" {
@@ -32,7 +89,7 @@ module "pw-gen" {
   source  = "../../../modules/generic/random-string"
   length  = 32
   special = true
-  upper   = false
+  upper   = true
   lower   = true
   number  = true
 
@@ -43,7 +100,7 @@ module "pw-gen" {
 module "kv-pw-gen" {
   #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
   source           = "../../../modules/azure/keyvault-secret"
-  name             = "db-password"
+  name             = "vm-password"
   value            = module.pw-gen.result
   key_vault_id     = module.kv.key_vault_id
   business_unit    = var.business_unit
@@ -53,7 +110,24 @@ module "kv-pw-gen" {
   environment      = var.environment
   attributes       = var.attributes
   tags             = var.tags
-  location         = var.primary_location
+  location         = var.location
+}
+
+
+module "admin_username" {
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
+  source           = "../../../modules/azure/keyvault-secret"
+  name             = "vm-username"
+  value            = var.admin_username
+  key_vault_id     = module.kv.key_vault_id
+  business_unit    = var.business_unit
+  project_name     = var.project_name
+  application_name = var.application_name
+  managed_by       = var.managed_by
+  environment      = var.environment
+  attributes       = var.attributes
+  tags             = var.tags
+  location         = var.location
 }
 
 
@@ -69,9 +143,65 @@ module "network" {
   environment         = var.environment
   attributes          = var.attributes
   tags                = var.tags
-  address_space                    = var.address_space
-  address_prefix                   = var.address_prefix
+  address_space       = var.address_space
+  address_prefix      = var.address_prefix
   name                = var.name
+    service_endpoints    = "Microsoft.Sql", "Microsoft.Storage", "Microsoft.KeyVault"
+
+}
+
+
+module "nic" {
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/vnet-with-subnet?ref=feature/network-interface"
+  source                        = "../../../modules/azure/network-interface"
+  resource_group_name           = module.rg.resource_group_name
+  location                      = var.location
+  business_unit                 = var.business_unit
+  project_name                  = var.project_name
+  application_name              = var.application_name
+  managed_by                    = var.managed_by
+  environment                   = var.environment
+  attributes                    = var.attributes
+  tags                          = var.tags
+  name                          = "${var.name}-1"
+  private_ip_address_allocation = var.private_ip_address_allocation
+  subnet_id                     = module.network.subnet_id
+}
+
+
+module "nic2" {
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/vnet-with-subnet?ref=feature/network-interface"
+  source                        = "../../../modules/azure/network-interface"
+  resource_group_name           = module.rg.resource_group_name
+  location                      = var.location
+  business_unit                 = var.business_unit
+  project_name                  = var.project_name
+  application_name              = var.application_name
+  managed_by                    = var.managed_by
+  environment                   = var.environment
+  attributes                    = var.attributes
+  tags                          = var.tags
+  name                          = "${var.name}-2"
+  private_ip_address_allocation = var.private_ip_address_allocation
+  subnet_id                     = module.network.subnet_id
+}
+
+
+module "nic3" {
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/vnet-with-subnet?ref=feature/network-interface"
+  source                        = "../../../modules/azure/network-interface"
+  resource_group_name           = module.rg.resource_group_name
+  location                      = var.location
+  business_unit                 = var.business_unit
+  project_name                  = var.project_name
+  application_name              = var.application_name
+  managed_by                    = var.managed_by
+  environment                   = var.environment
+  attributes                    = var.attributes
+  tags                          = var.tags
+  name                          = "${var.name}-3"
+  private_ip_address_allocation = var.private_ip_address_allocation
+  subnet_id                     = module.network.subnet_id
 }
 
 
@@ -79,14 +209,7 @@ module "network" {
 
 
 
-
-
-
 # Variables
-
-
-
-
 variable "vm_size" {
   type = string
 }
@@ -117,6 +240,14 @@ variable "os_version" {
   default     = "latest"
 }
 
+variable "vm_sku_tier" {
+  type        = string
+  description = "The size of the virual machine"
+}
+
+
+# Network
+
 variable "address_space" {
   type = string
 }
@@ -125,12 +256,60 @@ variable "address_prefix" {
   type = string
 }
 
-variable "computer_name" {
-  type        = string
-  description = "(Required) Specifies the computer name prefix for all of the virtual machines in the scale set. Computer name prefixes must be 1 to 9 characters long for windows images and 1 - 58 for linux. Changing this forces a new resource to be created."
+variable "private_ip_address_allocation" {
+  type = string
 }
 
-variable "vm_sku_tier" {
-  type        = string
-  description = "The size of the virual machine"
+
+
+
+
+
+# Linux VM
+
+variable "publisher" {
+  type = string
 }
+
+variable "offer" {
+  type = string
+}
+
+variable "sku" {
+  type = string
+}
+
+variable "caching" {
+  type = string
+}
+
+variable "create_option" {
+  type = string
+}
+
+variable "managed_disk_type" {
+  type = string
+}
+
+variable "disable_password_authentication" {
+  type = string
+}
+
+variable "storage_image_reference_version" {
+  type = string
+}
+
+variable "delete_data_disks_on_termination" {
+  type = string
+}
+
+variable "delete_os_disk_on_termination" {
+  type = string
+}
+
+
+
+
+
+
+    

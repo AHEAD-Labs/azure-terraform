@@ -1,17 +1,4 @@
-module "label" {
-  source           = "../../generic/label"
-  business_unit    = var.business_unit
-  project_name     = var.project_name
-  application_name = var.application_name
-  managed_by       = var.managed_by
-  environment      = var.environment
-  delimiter        = var.delimiter
-  attributes       = var.attributes
-  tags             = var.tags
-  region           = var.location
-  enabled          = var.enabled
 
-}
 
 resource "random_string" "name" {
   length  = 6
@@ -47,13 +34,5 @@ resource "azurerm_sql_active_directory_administrator" "primary" {
 
 
 
-# This enables the database to talk with other azure services, without this you cannot log or use connection strings to any item without a static IP/vnet
-resource "azurerm_sql_firewall_rule" "primary" {
-  name                = "SQL-FW-Rule"
-  resource_group_name = var.resource_group_name
-  server_name         = azurerm_sql_server.main.name
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
-}
 
 

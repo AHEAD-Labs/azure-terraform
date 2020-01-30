@@ -44,9 +44,9 @@ resource "azurerm_application_gateway" "network" {
   resource_group_name = var.resource_group_name
   location            = var.location
   ssl_certificate {
-  name     = var.cert_name
-  data     = var.cert
-  password = var.cert_pw
+    name     = var.cert_name
+    data     = var.cert
+    password = var.cert_pw
   }
 
   sku {
@@ -63,7 +63,7 @@ resource "azurerm_application_gateway" "network" {
   }
   gateway_ip_configuration {
     name      = "my-gateway-ip-configuration"
-    subnet_id = "${azurerm_subnet.gw.id}"
+    subnet_id = azurerm_subnet.gw.id
   }
 
   frontend_port {
@@ -72,8 +72,8 @@ resource "azurerm_application_gateway" "network" {
   }
 
   frontend_ip_configuration {
-    name                 = "${local.frontend_ip_configuration_name}"
-    public_ip_address_id = "${azurerm_public_ip.gw.id}"
+    name                 = local.frontend_ip_configuration_name
+    public_ip_address_id = azurerm_public_ip.gw.id
   }
 
   backend_address_pool {
@@ -81,7 +81,7 @@ resource "azurerm_application_gateway" "network" {
   }
 
   backend_http_settings {
-    name                  = "${local.http_setting_name}"
+    name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
     path                  = "/path1/"
     port                  = 80

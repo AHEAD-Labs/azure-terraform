@@ -33,8 +33,8 @@ output "attributes" {
   description = "Normalized attributes"
 }
 
-output "rg_name" {
-  value = var.rg_name
+output "resource_group_name" {
+  value = var.resource_group_name
 }
 
 output "location" {

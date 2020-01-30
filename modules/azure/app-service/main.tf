@@ -1,17 +1,4 @@
 
-module "label" {
-  source           = "../../generic/label"
-  business_unit    = var.business_unit
-  project_name     = var.project_name
-  application_name = var.application_name
-  managed_by       = var.managed_by
-  environment      = var.environment
-  delimiter        = var.delimiter
-  attributes       = var.attributes
-  tags             = var.tags
-  region           = var.location
-  enabled          = var.enabled
-}
 
 resource "random_string" "appname" {
   length  = 8
@@ -34,13 +21,13 @@ resource "azurerm_app_service_plan" "main" {
 
 
   sku {
-     tier = var.tier
-     size = var.size
+    tier = var.tier
+    size = var.size
   }
 }
 
 resource "azurerm_app_service" "app" {
-  name                    = "${random_string.appname.result}"
+  name                    = random_string.appname.result
   location                = var.location
   resource_group_name     = var.resource_group_name
   app_service_plan_id     = azurerm_app_service_plan.main.id
@@ -55,8 +42,8 @@ resource "azurerm_app_service" "app" {
 
     schedule {
       frequency_interval = var.frequency_interval
-      frequency_unit     = var.frequency_unit 
-    }
+      frequency_unit     = var.frequency_unit
+          }
   }
 
   site_config {
@@ -70,7 +57,7 @@ resource "azurerm_app_service" "app" {
     ip_restriction = [{
       ip_address                = var.ip_address,
       subnet_mask               = var.subnet_mask,
-      virtual_network_subnet_id = null
+      virtual_network_subnet_id = var.virtual_network_subnet_id
 
 
     }]

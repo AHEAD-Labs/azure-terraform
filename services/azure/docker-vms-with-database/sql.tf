@@ -6,22 +6,23 @@
 
 
 module "kv" {
-  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault"
-  source              = "../../../modules/azure/keyvault"
+  #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/keyvault-locked-down"
+  source              = "../../../modules/azure/keyvault-locked-down"
   resource_group_name = module.rg.resource_group_name
   tenant              = var.tenant
-  location            = var.primary_location
+  location            = var.location
   name                = "ahead2020"
   sku_name            = var.sku_name
   # The user/service principal account that is running terraform
-  object_id        = var.provisioner_object_id
-  environment      = var.environment
-  business_unit    = var.business_unit
-  project_name     = var.project_name
-  application_name = var.application_name
-  managed_by       = var.managed_by
-  attributes       = var.attributes
-  tags             = var.tags
+  object_id                  = var.provisioner_object_id
+  environment                = var.environment
+  business_unit              = var.business_unit
+  project_name               = var.project_name
+  application_name           = var.application_name
+  managed_by                 = var.managed_by
+  attributes                 = var.attributes
+  tags                       = var.tags
+  virtual_network_subnet_ids = module.network.subnet_id
 
 }
 
@@ -51,7 +52,7 @@ module "kv-secret-dbpw" {
   environment      = var.environment
   attributes       = var.attributes
   tags             = var.tags
-  location         = var.primary_location
+  location         = var.location
 }
 
 
@@ -68,7 +69,7 @@ module "kv-secret-dbusername" {
   environment      = var.environment
   attributes       = var.attributes
   tags             = var.tags
-  location         = var.primary_location
+  location         = var.location
 }
 
 
@@ -89,10 +90,10 @@ module "kv-policy" {
 
 
 module "sa" {
-  #source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/storage-accounts"
-  source                    = "../../../modules/azure/storage-account"
+  #source      = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/storage-accounts-subnet"
+  source                    = "../../../modules/azure/storage-account-subnet"
   resource_group_name       = module.rg.resource_group_name
-  location                  = var.primary_location
+  location                  = var.location
   name                      = var.name
   account_tier              = var.account_tier
   account_replication_type  = "LRS"
@@ -105,6 +106,9 @@ module "sa" {
   environment               = var.environment
   attributes                = var.attributes
   tags                      = var.tags
+  default_action            = "Deny"
+  #ip_rules                   = null
+  virtual_network_subnet_ids = module.network.subnet_id
 }
 
 
@@ -140,13 +144,13 @@ module "primary" {
   source                       = "../../../modules/azure/azure-sql"
   resource_group_name          = module.rg.resource_group_name
   name                         = var.name
-  region                       = var.primary_location
+  region                       = var.location
   administrator_login_password = module.dbpw.result
   administrator_login          = var.administrator_login
   admin_email                  = var.admin_email
   object_id                    = var.sql_object_id
   database_version             = var.database_version
-  location                     = var.primary_location
+  location                     = var.location
   tenant_id                    = var.tenant
   business_unit                = var.business_unit
   project_name                 = var.project_name
@@ -173,7 +177,7 @@ module "sql-db" {
   database_version           = var.database_version
   database_edition           = var.database_edition
   database_size              = var.database_size
-  location                   = var.primary_location
+  location                   = var.location
   server_name                = module.primary.name
   name                       = var.name
   storage_endpoint           = module.sa.primary_blob_endpoint
@@ -182,4 +186,12 @@ module "sql-db" {
   retention_days             = 14
   state                      = "Enabled"
 
+}
+
+
+resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {
+  name                = "sql-vnet-rule"
+  resource_group_name = module.rg.resource_group_name
+  server_name         = module.primary.name
+  subnet_id           = module.network.subnet_id
 }
