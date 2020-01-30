@@ -1,8 +1,6 @@
 
 
-data "http" "myip" {
-  url = "http://ipv4.icanhazip.com"
-}
+
 
 resource "azurerm_key_vault" "main" {
   name                            = "${var.name}-keyvault"
@@ -72,22 +70,6 @@ resource "azurerm_key_vault" "main" {
       "setissuers",
       "update",
     ]
-  }
-
-
-  network_acls {
-
-    bypass = "AzureServices"
-
-    default_action = "Allow"
-    # - (Required) The Default Action to use when no rules match from ip_rules / virtual_network_subnet_ids. Possible values are Allow and Deny.
-
-
-
-
-    ip_rules = [data.http.myip.body]
-
-    virtual_network_subnet_ids = [var.virtual_network_subnet_ids]
   }
 
 }

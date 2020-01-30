@@ -1,25 +1,10 @@
-module "label" {
-  source           = "../../generic/label"
-  business_unit    = var.business_unit
-  project_name     = var.project_name
-  application_name = var.application_name
-  managed_by       = var.managed_by
-  environment      = var.environment
-  delimiter        = var.delimiter
-  attributes       = var.attributes
-  tags             = var.tags
-  region           = var.location
-  enabled          = var.enabled
-}
+
 
 
 
 
 # variables
 
-variable "location" {
-  type = string 
-}
 
 
 variable "business_unit" {
@@ -29,7 +14,7 @@ variable "business_unit" {
 
 variable "project_name" {
   type        = string
-  description = "Project name. e.g. "
+  description = "Project name. e.g. 'Gov2Go'"
 }
 
 variable "application_name" {

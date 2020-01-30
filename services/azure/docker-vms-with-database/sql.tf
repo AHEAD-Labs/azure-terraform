@@ -26,6 +26,8 @@ module "kv" {
 
 }
 
+
+
 module "dbpw" {
   #source           = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/generic/random-string"
   source  = "../../../modules/generic/random-string"
@@ -82,7 +84,16 @@ module "kv-policy" {
   object_id    = var.kv_object_id
   key_vault_id = module.kv.key_vault_id
   tenant       = var.tenant
-
+  business_unit    = var.business_unit
+  project_name     = var.project_name
+  application_name = var.application_name
+  managed_by       = var.managed_by
+  environment      = var.environment
+  delimiter        = var.delimiter
+  attributes       = var.attributes
+  tags             = var.tags
+  enabled          = var.enabled
+  location         = var.location
 
 }
 
@@ -182,7 +193,7 @@ module "sql-db" {
   name                       = var.name
   storage_endpoint           = module.sa.primary_blob_endpoint
   storage_account_access_key = module.sa.primary_access_key
-  email_addresses            = [var.admin_email, ]
+  email_addresses            = [var.admin_email,]
   retention_days             = 14
   state                      = "Enabled"
 

@@ -17,9 +17,6 @@ module "label" {
 
 # variables
 
-variable "location" {
-  type = string 
-}
 
 
 variable "business_unit" {
@@ -29,7 +26,7 @@ variable "business_unit" {
 
 variable "project_name" {
   type        = string
-  description = "Project name. e.g. "
+  description = "Project name. e.g. 'Gov2Go'"
 }
 
 variable "application_name" {

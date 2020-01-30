@@ -1,10 +1,6 @@
 
 
 # Main
-variable "business_unit" {
-  type        = string
-  description = "Business unit for the project"
-}
 
 variable "subscription_id" {
   type = string

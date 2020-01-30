@@ -1,6 +1,6 @@
 module "vm" {
-  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
-  source                           = "../../../modules/azure/windows-vm"
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/virtual-machine-windows"
+  source                           = "../../../modules/azure/virtual-machine-windows"
   resource_group_name              = module.rg.resource_group_name
   location                         = var.location
   business_unit                    = var.business_unit
@@ -26,8 +26,8 @@ module "vm" {
 
 
 module "vm2" {
-  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
-  source                           = "../../../modules/azure/linux-vm"
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/virtual-machine-linux"
+  source                           = "../../../modules/azure/virtual-machine-linux"
   resource_group_name              = module.rg.resource_group_name
   location                         = var.location
   business_unit                    = var.business_unit
@@ -56,8 +56,8 @@ module "vm2" {
 
 
 module "vm3" {
-  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/scale-set"
-  source                           = "../../../modules/azure/linux-vm"
+  #source = "git@github.com/AHEAD-Labs/azure-terraform/tree/master/modules/azure/scale-set?ref=feature/virtual-machine-linux"
+  source                           = "../../../modules/azure/virtual-machine-linux"
   resource_group_name              = module.rg.resource_group_name
   location                         = var.location
   business_unit                    = var.business_unit
@@ -146,7 +146,7 @@ module "network" {
   address_space       = var.address_space
   address_prefix      = var.address_prefix
   name                = var.name
-    service_endpoints    = "Microsoft.Sql", "Microsoft.Storage", "Microsoft.KeyVault"
+    
 
 }
 
