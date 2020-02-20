@@ -3,9 +3,15 @@ variable "business_unit" {
   description = "Business unit for the project - Portal name or business unit name"
 }
 
+
+
 variable "environment" {
-  type        = string
-  description = "Production = prd, Development = dev, Test = tst, Stage = stg, QA = qa, UAT = uat, Performance Test = pft , Demo = dem, Break Fix = bfx"
+  type = string
+
+  validation {
+    condition     = contains(["qa", "dev", "prod"], var.environment)
+    error_message = "Argument \"environment\" must be either \"qa\", \"dev\", or \"prod\"."
+  }
 }
 
 variable "project_name" {

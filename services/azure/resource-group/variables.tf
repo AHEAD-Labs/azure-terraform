@@ -23,10 +23,16 @@ variable "managed_by" {
   description = "Organization team name or group. e.g. 'ETS-SRE'"
 }
 
+
 variable "environment" {
-  type    = string
-  default = "default"
+  type = string
+
+  validation {
+    condition     = contains(["qa", "dev", "prod"], var.environment)
+    error_message = "Argument \"environment\" must be either \"qa\", \"dev\", or \"prod\"."
+  }
 }
+
 
 variable "delimiter" {
   type    = string
@@ -50,4 +56,10 @@ variable "name" {
 variable "location" {
   type    = string
   default = "Central US"
+}
+
+variable "enabled" {
+  type        = bool
+  description = "Whether to create this resource or not?"
+  default     = true
 }

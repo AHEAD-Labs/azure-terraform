@@ -1,6 +1,6 @@
 # The Tenant and Subscription you want to build infrastructure in
-tenant          = "8734e533-05c7-4218-a322-115d77ce7536"
-subscription_id = "8688fca6-f9ff-4c38-b2cb-b31972c4a1ad"
+tenant          = ""
+subscription_id = ""
 
 #region
 location = "eastus"
@@ -42,11 +42,11 @@ account_kind             = "StorageV2"
 sku_name = "standard"
 
 # the object id of the user or group needing access to keyvault
-kv_object_id = "fa2b1bf1-2eb7-42af-b924-e5f43834dcd7"
+kv_object_id = ""
 
 # the object id of the the user or service principal running terraform, needs to be in place 
 #for objects to be added to keyvault (ie secrets, certificates, etc )
-provisioner_object_id = "fa2b1bf1-2eb7-42af-b924-e5f43834dcd7"
+provisioner_object_id = ""
 
 
 # Windows VM

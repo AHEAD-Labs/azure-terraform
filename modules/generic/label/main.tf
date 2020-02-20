@@ -52,3 +52,7 @@ resource "random_string" "random" {
   lower   = true
   number  = false
 }
+
+terraform {
+  experiments = [variable_validation]
+}
